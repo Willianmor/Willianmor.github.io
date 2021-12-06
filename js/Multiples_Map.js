@@ -150,7 +150,7 @@ export class MultiplesMap {
     }
 
     //Faz um for em maps e plota tudo no mesmo div
-    renerMaps(extension, center_map) {
+    renderMaps(extension, center_map) {
 
         for (let i=0; i< this.mydata.attributes.length; i++){
             // //Inserir informações dos atributos/variáveis
