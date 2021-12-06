@@ -1,0 +1,47 @@
+.area {
+  fill: steelblue;
+  clip-path: url(#clip);
+}
+.myaxis line{
+  opacity: 0.3;
+}
+/* Turn off every features */
+.mybar:hover{
+  opacity:0.7;
+}
+.mypie:hover{
+  opacity:0.5;
+  stroke-width: 3;
+  /*stroke: rgb(42, 42, 41);*/
+}
+
+.grid {
+  border: 1px solid red;
+}
+
+.zoom {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+.load_data {
+  display: none;
+}
+.render_data {
+  display: none;
+}
+.fileExist {
+  display: none;
+}
+.line-path {
+  fill: none;
+  stroke: rgb(3, 129, 66);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+
+.legend rect {
+	stroke: #635F5D;
+}
