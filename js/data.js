@@ -1,7 +1,9 @@
 //'use strict';
+//'use strict';
 
 //Importando a biblioteca que calcula o centróide
 import {polylabel} from "./lib/polylabel.js";
+
 
 export class Data {
     //Criando construtor da classe
@@ -74,18 +76,26 @@ export class Data {
         this.attributes = this.data.columns.slice(2)
         //console.log("Atributos",this.attributes)
 
-        //Criar o valor máximo de cada atributo
+        //Criar o valor máximo e mínimo de cada atributo
         
         this.MAXVALUES = {}
-        for (let i=0; i< this.attributes.length; i++) {
-            let nameatt = this.attributes[i]
-            this.MAXVALUES[nameatt] = -1
-        }
+        this.MEANVALUES = {}
         this.MINVALUES = {}
         for (let i=0; i< this.attributes.length; i++) {
             let nameatt = this.attributes[i]
+            this.MAXVALUES[nameatt] = -1
+            this.MEANVALUES[nameatt] = 0
             this.MINVALUES[nameatt] = Number.POSITIVE_INFINITY
         }
+        // this.MINVALUES = {}
+        // for (let i=0; i< this.attributes.length; i++) {
+        //     let nameatt = this.attributes[i]
+        //     this.MINVALUES[nameatt] = Number.POSITIVE_INFINITY
+        // }
+        //console.log(this.MINVALUES,this.MAXVALUES)
+
+        //Criação dos valores mínimos e máximos para cada atributo
+        this.findMinMaxValues(this.data)
 
         //Necessário criar o valor mínimo
 
@@ -93,8 +103,18 @@ export class Data {
         this.count_attr =  this.attributes.length
         //console.log(this.count_attr)
 
-        //Criar as cores automaticamente para até 10  variáveis dos atributos calculados
-        this.color = d3.schemeCategory10.slice(0,this.count_attr)
+        if (this.count_attr == 3){         
+            this.color = ["#FF0000","#008000","#0000FF"]
+            //console.log("Três varáveis é possível")
+        }else{
+            //Criar as cores automaticamente para até 10  variáveis dos atributos calculados
+            //this.color = d3.schemeCategory10.slice(0,this.count_attr)
+            this.color = ["#0000FF","#FF7F00","#008000","#FF0000","#993399","#000000","#FFFF00","#50301E","#FF007F","#696969"]
+            //console.log("Tem mais de três cores")
+        }
+
+
+                
         
         //Cria os tons de cor
         //O fillTonsColor retorna um objeto de tons de cores para cada cor corrente (variável)
@@ -125,36 +145,89 @@ export class Data {
       
     }
 
+    findMinMaxValues(data) {
+        //Realizando a iteração para preeencher os dados
+        for(let i=0; i<this.attributes.length; i++) {
+
+            let name_atribute = this.attributes[i]
+            let tmp_sum = 0
+
+            for(let j=0; j<data.length; j++) {
+                let value_data = parseInt(this.data[j][name_atribute])
+                tmp_sum += value_data
+                //Avaliando o valor máximo
+                if (this.MAXVALUES[name_atribute]<value_data) {
+                    this.MAXVALUES[name_atribute] = value_data
+                }
+
+                //Avaliando o valor mínimo
+                if (this.MINVALUES[name_atribute]>value_data) {
+                    this.MINVALUES[name_atribute] = value_data
+                }
+
+            }
+            this.MEANVALUES[name_atribute] = parseInt(tmp_sum/data.length)
+        }
+        console.log("-=-=-=-=-=-= ",this.MINVALUES,this.MAXVALUES )
+    }
+
     //Função que cria as variáveis por região.
     dataVariablesbyRegion(data_region) {
         //let mydata = this.data
         //Criando a lista da estrutura das variáveis
         let list_variable_structure = []
         
+        
         //Criando o objeto as informações da legenda
         let legend_by_coropletMap = {}
+        let legend_by_value = {}
 
         //Realizando a iteração para preeencher os dados
         for(let i=0; i<this.attributes.length; i++) {
+
             let name_atribute = this.attributes[i]
+
+            
             //Criando a variável com os valores de cores
             let color_atribute = this.color[i]
             //Criando a lista com os valores das classificações de cada variável
             let classify_atribute = this.classifyAttributes(name_atribute, data_region[name_atribute])
+
+
+            //Calculando valor médio
+            let average_atribute = this.calculaAverageValueAtribute(name_atribute, data_region[name_atribute])
+
+            console.log(average_atribute)
             
-            //Legenda
+            //Legenda do mapa de classes
             legend_by_coropletMap[name_atribute] = []
             let rangeclasses = classify_atribute[2]
             for(let j=0; j<rangeclasses.length; j++){
                 let my_ton_color = this.tons_color[color_atribute][j]
                 legend_by_coropletMap[name_atribute].push({'key':rangeclasses[j], 'color':my_ton_color})
             }
+
+            //Informações para interpolação de cor
+            let min = this.MINVALUES[name_atribute]
+            let max = this.MAXVALUES[name_atribute]
+            //console.log("Minimo,Maximo",min,max)
+
+
+            //let auxColor = color_atribute
+            let auxColor = d3.rgb(color_atribute).darker(1.0).formatHex()
+            let fun_color_scale = this.calculateColorScale(min,max,auxColor)
+
+            //Legenda
+            //legend_by_value[name_atribute] = []
+            //legend_by_value[name_atribute]= ({'key':data_region[name_atribute], 'color':fun_color_scale(parseInt(data_region[name_atribute]))})
             
+
             //Estrutura principal
             let variable_structure = {
                 "name": name_atribute,
                 "value": data_region[name_atribute],
                 "variablecolor": color_atribute,
+                "ColorScale": fun_color_scale(parseInt(data_region[name_atribute])),
                 "rangeclasse": classify_atribute[1], 
                 "variableclassify": classify_atribute[0],
                 "colorranger_classify": this.tons_color[color_atribute][classify_atribute[0]-1]
@@ -162,23 +235,44 @@ export class Data {
             //Empilhando as variáveis na lista da estrutura
             list_variable_structure.push(variable_structure)
 
-            //Avaliando o valor máximo
-            if (this.MAXVALUES[name_atribute]<parseInt(data_region[name_atribute])) {
-                this.MAXVALUES[name_atribute] = parseInt(data_region[name_atribute])
-            }
-
-            //Avaliar o valor mínimo
-            //Avaliando o valor máximo
-            if (this.MINVALUES[name_atribute]>parseInt(data_region[name_atribute])) {
-                this.MINVALUES[name_atribute] = parseInt(data_region[name_atribute])
-            }
-            
         }
-        
+
         //Atribuindo o objeto da legenda a uma variável do contexto.
         this.legend_by_coropletMap = legend_by_coropletMap
+        
         return list_variable_structure
     }
+
+    calculateColorScale (Lim_inf,Lim_sup, current_color){
+        let color_base = "#ffffff"
+        
+        let ColorScale = d3.scaleSequential()
+        .domain([Lim_inf,Lim_sup]) //Domínio do dado (0 até o limite máximo de cada eixo)
+        .interpolator(d3.interpolateRgb(color_base,current_color));    //Valor pixel,this.config.width/14 = 14,5.   [14,50] 
+        //Quando range min = this.config.width/14, está dando erro na escala da legenda.
+
+
+        return ColorScale;
+    }
+
+    //Método de classificação dos índices para o mapa
+    //Existe um parâmetro de entrada que é uma lista com os nomes dos atributos considerados do dataset
+    calculaAverageValueAtribute(name_atribute, valor_attribute){
+
+        //Declarando uma lista de atributos vazia - Essa lista considerá todas as regiçõ
+        let list_atribute = []
+        
+        //Percorre o dataset e cria a lista de atributos # TODO: melhorar performance
+        for (let i=0; i< this.data.length; i++) {
+            list_atribute.push(this.data[i][name_atribute])
+        }
+        
+        let averageAtribute = 0
+
+        return averageAtribute  
+    }
+
+
 
     //Método de classificação dos índices para o mapa
     //Existe um parâmetro de entrada que é uma lista com os nomes dos atributos considerados do dataset
@@ -191,6 +285,9 @@ export class Data {
         for (let i=0; i< this.data.length; i++) {
             list_atribute.push(this.data[i][name_atribute])
         }
+        
+        
+        
 
         //Cria o novo objeto com a lista de atributos
         let serie6 = new geostats(list_atribute);
@@ -198,14 +295,6 @@ export class Data {
         serie6.getClassJenks(this.num_classes);
         //Cria o range
         let ranges = serie6.getRanges();
-
-        
-        //for(let i = 0; i < ranges.length ; i++) {
-        //    console.log(ranges[i], typeof(ranges[i]));
-        //}
-
-        //console.log("info:", serie6.info())
-        //console.log("sorted list:",serie6.getSortedlist())
 
         
         //Se tiver algum erro, o classificador será menos 1
@@ -233,22 +322,53 @@ export class Data {
         return [classify, ranges[classify-1], ranges]
     }
 
-
-    //Cria os tons de cor
-    fillTonsColor(){
-
-        //Cor laranja - teste
-        // for (let i=1; i < this.num_classes+1; i++){
-        //     let aux = i/this.num_classes
-        //     console.log(color_interpolate(aux))
-        // }
-
+    createSpecialTonsColor(){
+        
         //Criando um objeto que irá receber os tons
         let tons_color = {}
 
         //Cor base (branco)
         let color_base = "#ffffff"
+
+        //Percorrendo as cores de todas as variáveis e criando uma lista com os tons dessas cores para n variáveis (mapa coroplético)
+        for(let i=0; i < this.color.length; i++){ // foreach (for i in color)
+            //Criando a variável de cor corrente
+            let current_color = this.color[i]
+            //Interpolando as cores mais claras
+            let color_interpolate = d3.interpolate(color_base,current_color) // [1, 63, 127, 191,255]
+            //console.log("--------------",color_interpolate(1))
+                      
+            //Criando as listas de tons
+            let list_tons = []
+            var cor_rgb = ""
+            //let list_tons_darker = []
+
+            //Valores ímpares
+            for (let j=0; j < this.num_classes; j++){
+                let aux = j/this.num_classes//max_cor*(j/this.num_classes)
+                list_tons.push(color_interpolate(aux))
+                //console.log("DEBUG****************",color_interpolate[j],this.num_classes)
+                // let aux = color_interpolate[j].toString()
+                // if (i==0){cor_rgb = "rgb(" + aux  + ",0,0)"}
+                // if (i==1){cor_rgb = "rgb(0," + aux  + ",0)"}
+                // if (i==2){cor_rgb = "rgb(0,0," + aux  + ")"}
+                // list_tons.push(cor_rgb)
+            }
+            console.log("CADEEEE*************************",list_tons)
+            
+            tons_color[current_color] = list_tons
+        }
+        return tons_color
+    }
+
+    createNormalTonsColor(){
         
+        //Criando um objeto que irá receber os tons
+        let tons_color = {}
+
+        //Cor base (branco)
+        let color_base = "#ffffff"
+
         //Percorrendo as cores de todas as variáveis e criando uma lista com os tons dessas cores para n variáveis (mapa coroplético)
         for(let i=0; i < this.color.length; i++){ // foreach (for i in color)
             //Criando a variável de cor corrente
@@ -287,8 +407,29 @@ export class Data {
             let complemento = this.num_classes - metade
             tons_color[current_color] = list_tons.concat(list_tons_darker.slice(-complemento))
         }
-        //Retorna o objeto tons de cores para cada cor corrente (variável)
         return tons_color
+    }
+
+
+    
+
+
+    //Cria os tons de cor
+    fillTonsColor(){
+
+        //Cor laranja - teste
+        // for (let i=1; i < this.num_classes+1; i++){
+        //     let aux = i/this.num_classes
+        //     console.log(color_interpolate(aux))
+        // }
+        if (this.attributes.length == 3){
+            return this.createSpecialTonsColor()
+        }else{
+            return this.createNormalTonsColor()
+        }
+
+        //Retorna o objeto tons de cores para cada cor corrente (variável)
+        //return tons_color
     }
 
     getCentroide(dataset_mapa, precision=1.0){

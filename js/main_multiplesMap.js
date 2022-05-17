@@ -6,7 +6,7 @@ import { MultiplesMap } from "./Multiples_Map.js";
 import { RadarMap } from "./Radar_Map.js";
 
 
-var data_covid = new Data("./assets/dataset_covid_minerado_Normalizado_const-10att.csv","./assets/EstadosBR_IBGE_LLWGS84_1.geojson")
+var data_covid = new Data("./assets/dataset_covid_minerado_normalizado_18012022.csv","./assets/EstadosBR_IBGE_LLWGS84_1.geojson")
 await data_covid.loadData()
 
 

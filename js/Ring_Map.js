@@ -388,7 +388,7 @@ export class RingMap {
                                                 .attr('height', side).attr("transform","rotate("+angle+"," + cx + "," + cy + ")")
                                                 .style("stroke", "black")
                                                 .attr('stroke-width', 1)
-                                                .attr("fill", function(d, j){return data_final_structure[region.region].variables[j].colorranger_classify}) //function(d, i){return myColor(d) })
+                                                .attr("fill", function(d, j){return data_final_structure[region.region].variables[j].ColorScale}) //function(d, i){return myColor(d) })
             }
             
         }
@@ -462,7 +462,7 @@ export class RingMap {
             .text("Chaves de Anel");
     }
     
-    renderMapLegend (legends, atributtes) {
+    renderMapLegend (dataMin, dataMax, dataMean, legends, atributtes) {
         let x = this.config.width*0.1
         let y = this.config.height*0.83
         let side = this.config.width*1.6/100
@@ -498,12 +498,35 @@ export class RingMap {
             .text(newTitle);
 
             //Cores dos intervalos
-            let nested = legends[title]
+            //let nested = legends[title]
+
+            let max_barH = 80
+            let h_bar_i = 1.7
+            let min = dataMin[title]
+            let max = dataMax[title]
+            let mean = dataMean[title]
+
+            let nested = [min] //legends[title]
+            let aux = (max-min)/max_barH
+            for(let j=1; j<max_barH-1; j++){
+                nested.push(nested[j-1] + aux)
+            }
+            nested.push(max)
+
+            let textlabel_min_max = [d3.min(nested),d3.max(nested)].reverse()
+            let textlabel_mean = [mean]
+            let mean_Scale = (max - mean)*max_barH/(max-min)
+
+
+            let color = legends[title][4].color
+
+            let fun_color_scale = this.calculateColorScale(max,min,color)
 
             var legend = this.svg.selectAll('.legend'+title).data(nested)
                 .enter().append('g')
                 .attr('class', 'legend')
-                .attr('transform', function(d, k) { return 'translate(0,' + k * side + ')'; });
+                .attr('transform', function(d, k) { return 'translate(0,' + k * 1 + ')'; });
+                //.attr('transform', function(d, k) { return 'translate(0,' + k * side + ')'; });
             
             k=k+1
 
@@ -511,22 +534,87 @@ export class RingMap {
                 .attr('x', aux_x)
                 .attr('y', y + 10)
                 .attr('width', side)
-                .attr('height', side)
+                .attr('height', h_bar_i)
                 .style("stroke", "black")
                 .attr("alignment-baseline","middle")
-                .attr('stroke-width', 1)
-                .attr('fill', function(d) { return d.color;});
+                .attr('stroke-width', 0)
+                .attr('fill', function(d) { return fun_color_scale(d);});
 
-            legend.append('text')
-                .attr('x', aux_x + side + 5)
-                .attr('y', y)
-                .attr('dy', '1.5em')
-                .attr("alignment-baseline","middle")
+            //Borda da Barra
+            let Label_and_border = this.svg.selectAll('.legend_border'+title).data(textlabel_min_max)
+                .enter().append('g')
+                .attr('class', 'legend_border')
+                .attr('transform', function(d, k) { return 'translate(0,' + k * 1 + ')'; });
+        
+            Label_and_border.append('rect')
+                .attr('x', aux_x)
+                .attr('y', y + 10)
+                .attr('width', side)
+                .attr('height', max_barH)
+                .attr('stroke-width', 1)
+                .attr('stroke',"Black")
+                .attr('fill', "none");
+            Label_and_border.append('text')
+                .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
+                .attr('x', aux_x + side*1.2)
+                .attr('y', y + 10)
+                .attr('dy', '0.5em')
                 .style('text-anchor', 'start')
                 .attr("font-weight", "bold")
-                .style('font-size', '12px')
-                .text(function(d) { return d.key; });
+                .style('font-size', '10px')
+                .text(function(d) {return d.toString()});
+            Label_and_border.append('line')
+                .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
+                .attr("x1", aux_x + side)
+                .attr("y1", y + 10)
+                .attr("x2", aux_x + side*1.2)
+                .attr("y2", y + 10)
+                .attr("stroke","black")
+                .attr('stroke-width', 2);
+
+            //Text label mean
+            //Borda da Barra
+            let Label_and_border_mean = this.svg.selectAll('.legend_border_mean'+title).data(textlabel_mean)
+                .enter().append('g')
+                .attr('class', 'legend_border_mean')
+            Label_and_border_mean.append('text')
+                .attr('x', aux_x + side*1.2)
+                .attr('y', y + 10 + mean_Scale)
+                .attr('dy', '0.5em')
+                .style('text-anchor', 'start')
+                .attr("font-weight", "bold")
+                .style('font-size', '10px')
+                .text(function(d) {return d.toString()});
+
+            Label_and_border_mean.append('line')
+                .attr("x1", aux_x + side)
+                .attr("y1", y + 10 + mean_Scale)
+                .attr("x2", aux_x + side*1.2)
+                .attr("y2", y + 10 + mean_Scale)
+                .attr("stroke","black")
+                .attr('stroke-width', 2);
+
+
+
+            // legend.append('text')
+            //     .attr('x', aux_x + side + 5)
+            //     .attr('y', y)
+            //     .attr('dy', '1.5em')
+            //     .attr("alignment-baseline","middle")
+            //     .style('text-anchor', 'start')
+            //     .attr("font-weight", "bold")
+            //     .style('font-size', '12px')
+            //     .text(function(d) { return d.key; });
         }
+    }
+
+    calculateColorScale (Lim_inf,Lim_sup, current_color){
+        let color_base = "#ffffff"
+        let ColorScale = d3.scaleSequential()
+        .domain([Lim_inf,Lim_sup]) //Domínio do dado (0 até o limite máximo de cada eixo)
+        .interpolator(d3.interpolateRgb(color_base,current_color));    //Valor pixel,this.config.width/14 = 14,5.   [14,50] 
+        //Quando range min = this.config.width/14, está dando erro na escala da legenda.
+        return ColorScale;
     }
     
 

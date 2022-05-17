@@ -75,12 +75,13 @@ export class RadarChart {
                     }
                     //console.log("----------------------------------------",this.max_values[name],  this.max_values[name])
                     att[name] = value 
+                    
                 }
                 this.attributes.push(att)
             }
             this.name_attributes = input_attributes
-            console.log("*-*-*-*-*-*-*-",this.name_attributes)
-            console.log("*-*-*-*-*-*-*-",this.attributes)
+            //console.log("*-*-*-*-*-*-*-",this.name_attributes)
+            //console.log("*-*-*-*-*-*-*-",this.attributes)
         }else{
             //Se for normalizar os dados pela população
             for(let k=0; k<input_attributes.length ; k++){
@@ -94,7 +95,9 @@ export class RadarChart {
                 }
                 this.attributes.push(att)
             }
+            //console.log("*-*-*-*-*-*-*-",this.attributes)
         }
+        //console.log("*-*-*-*-*-*-*-",this.attributes)
     }
 
     //SVG deve ser criado para plotar a legenda
@@ -190,8 +193,9 @@ export class RadarChart {
         this.list_radial_scale = []
         //Criando os eixos dos do radar - só na legenda
         for (var k = 0; k < this.attributes.length; k++) {
+            //console.log("attributes.length",this.attributes)
             for (var i = 0; i < this.name_attributes.length; i++) {
-
+                //console.log("this.name_attributes.length",this.name_attributes)
                 let name = this.name_attributes[i]
                 let max_value_by_att = this.max_values[name]
                 let min_value_by_att = this.min_values[name]
@@ -246,7 +250,7 @@ export class RadarChart {
                         text_anchor = "end"
                     }
 
-                    console.log("*-*-*-*-*-*", name, angle)
+                    //console.log("*-*-*-*-*-*", name, angle)
                     let label_coordinate = this.angleToCoordinate(angle, max_value_by_att + 0.5); 
                     this.svg.append("text")
                     .attr("x", label_coordinate.x)

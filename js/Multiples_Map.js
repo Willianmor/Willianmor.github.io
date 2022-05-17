@@ -20,7 +20,7 @@ export class MultiplesMap {
     calculateExtensionAndCreateDivs() {
         //Requisita a quantidade de variáveis/atributos
         let len = this.count
-        this.dimesional = 650
+        this.dimesional = 720
 
         console.log("TESTE", len)
 
@@ -167,7 +167,12 @@ export class MultiplesMap {
             var mapa = new Maps(center_map,confsvg_)
             // //Carregar o mapa com variable
             mapa.render(this.mydata.data_mapa, this.mydata.final_structure, name_attribute)
-            mapa.renderMapLegend(this.mydata.legend_by_coropletMap,name_attribute)
+            //mapa.renderMapLegend(this.mydata.legend_by_coropletMap,name_attribute)
+            let min = this.mydata.MINVALUES[name_attribute]
+            let max = this.mydata.MAXVALUES[name_attribute]
+            let mean = this.mydata.MEANVALUES[name_attribute]
+            let cor = this.mydata.legend_by_coropletMap[name_attribute][4].color
+            mapa.renderMapLegend(min,max,mean,name_attribute,cor)
         }
     }
     

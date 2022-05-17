@@ -7,7 +7,7 @@ export class RadarMap {
         this.svg = null;
 
         this.center_map = center_map;
-        this.scale = this.config.height/2.3*Math.PI;
+        this.scale = this.config.height/2.2*Math.PI;
         this.projection = null;
         this.path = null;
         this.data = null;
@@ -107,7 +107,7 @@ export class RadarMap {
     //Nomes das variáveis
     
 
-    renderMapLegend (att_region, max_value,min_value, title) {
+    renderMapLegend (att_region, max_value,min_value, mean_value, title) {
 
         //ranges 
 
@@ -153,7 +153,7 @@ export class RadarMap {
             } 
             k += 1
             
-            this.createAxesLegend(min_value[name],max_value[name],radar_Chart, i, name,translateAxes, centroids)
+            this.createAxesLegend(min_value[name],max_value[name], mean_value[name],radar_Chart, i, name,translateAxes, centroids)
             //break
         }
         
@@ -162,7 +162,7 @@ export class RadarMap {
     
 
     //Lista de atributos this.attributes
-   createAxesLegend (datamin, dataMax, radar_Chart, i, name,translate,centroids) {
+   createAxesLegend (datamin, dataMax, dataMean, radar_Chart, i, name,translate,centroids) {
 
         let line_coordinate = radar_Chart.angleToCoordinate(Math.PI/2,dataMax, true, i)
         let label_coordinate = radar_Chart.angleToCoordinate(Math.PI/2,dataMax + 0.5, true, i); 
@@ -191,7 +191,7 @@ export class RadarMap {
 
         //tick = [0,min,medida,max]
         //Calculando as variáveis intermediárias do Radar Chart
-        let variable2 = Math.round((dataMax+datamin)/2)
+        let variable2 = dataMean//Math.round((dataMax+datamin)/2)
         
 
         
