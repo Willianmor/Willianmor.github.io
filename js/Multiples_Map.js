@@ -20,7 +20,7 @@ export class MultiplesMap {
     calculateExtensionAndCreateDivs() {
         //Requisita a quantidade de variáveis/atributos
         let len = this.count
-        this.dimesional = 650
+        this.dimesional = 600
 
         console.log("TESTE", len)
 
