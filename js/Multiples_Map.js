@@ -120,7 +120,33 @@ export class MultiplesMap {
             $('#' + this.config.div).html(html_code);
         }
 
-        else if (len>8 && len<=10) {
+        else if (len==9) {
+            this.dimesional = (this.dimesional*100)/160.5
+            //calcular width e height
+            extension = this.mydata.calculaExtentSVG(this.dimesional)
+            //similar ao de três -> com duas linhas
+            console.log("****************************_ Entrou em variável 5 e 6")
+            extension = this.mydata.calculaExtentSVG(this.dimesional)
+
+            let html_code = ''
+            let aux = 0
+            for (let j =0; j<4;j++) {
+                html_code += '<div class="row">'
+                for (let i=0; i< 3; i++){ // 0,1,2  //3,4,5
+                    if (aux ==  this.mydata.attributes.length){break}
+                    html_code += '<div id="map-' + 
+                                    this.mydata.attributes[aux] + '" class="col-2.5">'+
+                                    '</div>'
+                    aux += 1
+                }
+                html_code += '</div>' 
+            }
+            
+            $('#' + this.config.div).html(html_code);
+
+        }
+
+        else if (len==8 && len==10) {
             //Teste para mapa auxiliar
             this.dimesional = (this.dimesional*100)/160.5
             //Antigo
@@ -138,7 +164,7 @@ export class MultiplesMap {
                 for (let i=0; i< 4; i++){ // 0,1,2,3  //4,5,6,7 //8,9
                     if (aux < this.mydata.attributes.length){
                         html_code += '<div id="map-' + 
-                                        this.mydata.attributes[aux] + '" class="col-3">'+
+                                        this.mydata.attributes[aux] + '" class="col-2.5">'+
                                         '</div>'
                     }
                     aux += 1

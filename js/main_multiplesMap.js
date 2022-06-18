@@ -1,9 +1,7 @@
 //Carregando a Classe Data
 import {Data} from "./data.js";
-import {Maps} from "./maps.js";
 import { MultiplesMap } from "./Multiples_Map.js";
-//import { RadarChart } from "./Radar_Chart.js";
-import { RadarMap } from "./Radar_Map.js";
+
 
 
 var data_covid = new Data("./assets/dataset_covid_minerado_normalizado_18012022.csv","./assets/EstadosBR_IBGE_LLWGS84_1.geojson")
