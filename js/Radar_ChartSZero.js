@@ -185,6 +185,21 @@ export class RadarChart {
         return new_title;
     }
 
+    filterTitle1(title){
+        let newTitle1 = title.split("-")[0]
+        let title1 = newTitle1.replaceAll('_',' ')
+
+        return title1 
+    }
+
+    filterTitle2(title){
+        let newTitle1 = title.split("-")[1]
+        let title2 = "(" + newTitle1.replaceAll('_',' ')+")"
+
+        return title2 
+    }
+        
+
 
 
     //Espaço de renderização
@@ -259,7 +274,7 @@ export class RadarChart {
                     .attr("alignment-baseline","middle")
                     .attr("font-weight", "bold")
                     .style('font-size', '9px')
-                    .text(this.clearTitle(name));
+                    .text(this.filterTitle1(name));
                 }
 
             }

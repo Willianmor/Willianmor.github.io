@@ -70,7 +70,7 @@ export class Maps {
                     .attr("d", this.path)
                     .style("stroke", "black")
                     .style("stroke-width", 0.5)
-                    .style("opacity", .3)
+                    //.style("opacity", .3)
                 .append("title")
                     .text(d => `${d.properties.ESTADO}`);;
 
@@ -173,22 +173,30 @@ export class Maps {
         // //cores do ranges 
         // //let nested = unique //[{'key':'Rio de Janeiro','color':'red'}, {'key':'SP','color':'black'},{'key':'MG','color':'blue'}]
 
+        let newTitle1 = title.split("-")[0]
+        let newTitle2 = title.split("-")[1] 
+
+        let title1 = newTitle1.replaceAll('_',' ')
+        let title2 = "("+newTitle2.replaceAll('_',' ')+")"
         
-        //Elimina os _ ou - das strings do título
-        if (title.search('_') ){
-            var newTitle = title.replace('_',' ')
-        } else if (title.search('-')) {
-            var newTitle = title.replace('-',' ')
-        }
                 
 
         this.svg.append("text")
-        .attr("x", this.config.width*0.9)             
-        .attr("y", this.config.height*0.05) 
-        .style("font-size", "16px")
-        .style('text-anchor', 'end') 
+        .attr("x", this.config.width*0.81)             
+        .attr("y", this.config.height*0.7) 
+        .style("font-size", "12px")
+        //.style('text-anchor', 'end') 
         .attr("font-weight", "bold")
-        .text(newTitle);
+        .text(title1);
+
+
+        this.svg.append("text")
+        .attr("x", this.config.width*0.81)             
+        .attr("y", this.config.height*0.75) 
+        .style("font-size", "12px")
+        //.style('text-anchor', 'end') 
+        .attr("font-weight", "bold")
+        .text(title2);
 
         //Cores dos intervalos
         //let nested = legends[title]
@@ -209,7 +217,7 @@ export class Maps {
         let textlabel_mean = [mean]
         let mean_Scale = (max - mean)*max_barH/(max-min)
         
-        console.log("*/*/*//*//*/*/*/*",textlabel_min_max)
+        //console.log("*/*/*//*//*/*/*/*",textlabel_min_max)
 
         var legend = this.svg.selectAll('.legend').data(nested)
             .enter().append('g')
@@ -219,10 +227,11 @@ export class Maps {
         // https://stackoverflow.com/questions/56090105/how-to-invert-d3-color-ramps-d3-scale-chromatic-d3-interpolateviridis
         let fun_color_scale = this.calculateColorScale(max,min,color)
 
+        
         legend.append('rect')
             //.attr('x', this.config.width*0.75)
             .attr('x', this.config.width*0.85)
-            .attr('y', (this.config.height - this.config.bottom - max_barH))
+            .attr('y', (this.config.height - this.config.bottom - 0.3*max_barH))
             .attr('width', 20)
             .attr('height', h_bar_i)
             //.attr("alignment-baseline","middle")
@@ -237,7 +246,7 @@ export class Maps {
             Label_and_border.append('rect')
             //.attr('x', this.config.width*0.75)
             .attr('x', this.config.width*0.85)
-            .attr('y', (this.config.height - this.config.bottom - max_barH))
+            .attr('y', (this.config.height - this.config.bottom - 0.3*max_barH))
             .attr('width', 20)
             .attr('height', max_barH)
             .attr('stroke-width', 1)
@@ -250,7 +259,7 @@ export class Maps {
             .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
             //.attr('x', this.config.width*0.79 + side/2)
             .attr('x', this.config.width*0.91 + side/2)
-            .attr('y', this.config.height - this.config.bottom - max_barH)
+            .attr('y', this.config.height - this.config.bottom - 0.3*max_barH)
             .attr('dy', '0.5em')
             .style('text-anchor', 'start')
             .attr("font-weight", "bold")
@@ -261,10 +270,10 @@ export class Maps {
                 .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
                 //.attr("x1", this.config.width*0.78)
                 .attr("x1", this.config.width*0.85)
-                .attr("y1", this.config.height - this.config.bottom - max_barH)
+                .attr("y1", this.config.height - this.config.bottom - 0.3*max_barH)
                 //.attr("x2", this.config.width*0.79 + side/2)
                 .attr("x2", this.config.width*0.91 + side/2)
-                .attr("y2", this.config.height - this.config.bottom - max_barH)
+                .attr("y2", this.config.height - this.config.bottom - 0.3*max_barH)
                 .attr("stroke","black")
                 .attr('stroke-width', 2);
 
@@ -276,7 +285,7 @@ export class Maps {
         Label_and_border_mean.append('text')
             //.attr('x', this.config.width*0.79 + side/2)
             .attr('x', this.config.width*0.91 + side/2)
-            .attr('y', this.config.height - this.config.bottom - max_barH + mean_Scale)
+            .attr('y', this.config.height - this.config.bottom - 0.3*max_barH + mean_Scale)
             .attr('dy', '0.5em')
             .style('text-anchor', 'start')
             .attr("font-weight", "bold")
@@ -286,10 +295,10 @@ export class Maps {
         Label_and_border_mean.append('line')
             //.attr("x1", this.config.width*0.78)
             .attr("x1", this.config.width*0.89)
-            .attr("y1", this.config.height - this.config.bottom - max_barH + mean_Scale)
+            .attr("y1", this.config.height - this.config.bottom - 0.3*max_barH + mean_Scale)
             //.attr("x2", this.config.width*0.79 + side/2)
             .attr("x2", this.config.width*0.91 + side/2)
-            .attr("y2", this.config.height - this.config.bottom - max_barH + mean_Scale)
+            .attr("y2", this.config.height - this.config.bottom - 0.3*max_barH + mean_Scale)
             .attr("stroke","black")
             .attr('stroke-width', 2);
 

@@ -431,7 +431,7 @@ export class Data {
         //Retorna o objeto tons de cores para cada cor corrente (variável)
         //return tons_color
     }
-
+    
     getCentroide(dataset_mapa, precision=1.0){
 
         //Obtendo as coordenadas do GeoJson

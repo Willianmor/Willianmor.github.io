@@ -474,13 +474,14 @@ export class RingMap {
         let flag = true
         for (let i=0;i < atributtes.length ; i++){
             let title = atributtes[i]
-            //Elimina os _ ou - das strings do título
-            if (title.search('_') ){
-                var newTitle = title.replace('_',' ')
-            } else if (title.search('-')) {
-                var newTitle = title.replace('-',' ')
-            }
             
+            let newTitle1 = title.split("-")[0]
+            let newTitle2 = title.split("-")[1] 
+    
+            let title1 = newTitle1.replaceAll('_',' ')
+            let title2 = "("+newTitle2.replaceAll('_',' ')+")"
+            
+                        
             if (i>=5 && flag){
                 k=0
                 y=y+side*8 
@@ -491,11 +492,19 @@ export class RingMap {
 
             this.svg.append("text")
             .attr("x", aux_x)             
-            .attr("y", y) 
-            .style("font-size", "13px")
+            .attr("y", y-17) 
+            .style("font-size", "12px")
             .style('text-anchor', 'start') 
             .attr("font-weight", "bold")
-            .text(newTitle);
+            .text(title1);
+
+            this.svg.append("text")
+            .attr("x", aux_x)             
+            .attr("y", y) 
+            .style("font-size", "12px")
+            .style('text-anchor', 'start') 
+            .attr("font-weight", "bold")
+            .text(title2);
 
             //Cores dos intervalos
             //let nested = legends[title]
@@ -561,7 +570,7 @@ export class RingMap {
                 .attr('dy', '0.5em')
                 .style('text-anchor', 'start')
                 .attr("font-weight", "bold")
-                .style('font-size', '10px')
+                .style('font-size', '11px')
                 .text(function(d) {return d.toString()});
             Label_and_border.append('line')
                 .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
@@ -583,7 +592,7 @@ export class RingMap {
                 .attr('dy', '0.5em')
                 .style('text-anchor', 'start')
                 .attr("font-weight", "bold")
-                .style('font-size', '10px')
+                .style('font-size', '11px')
                 .text(function(d) {return d.toString()});
 
             Label_and_border_mean.append('line')

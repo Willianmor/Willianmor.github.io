@@ -45,3 +45,23 @@
 .legend rect {
 	stroke: #635F5D;
 }
+
+.Norte {
+  fill: green;
+}
+
+.Sul {
+  fill: blue;
+}
+
+.Sudeste {
+  fill: yellow;
+}
+
+.Nordeste {
+  fill: orange;
+}
+
+.Centro-Oeste {
+  fill: gray;
+}

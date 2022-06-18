@@ -115,25 +115,22 @@ export class RadarMap {
         //let nested = unique //[{'key':'Rio de Janeiro','color':'red'}, {'key':'SP','color':'black'},{'key':'MG','color':'blue'}]
 
         
-        //Elimina os _ ou - das strings do título
-        if (title.search('_') ){
-            var newTitle = title.replace('_',' ')
-        } else if (title.search('-')) {
-            var newTitle = title.replace('-',' ')
-        }
+        // let newTitle1 = title.split("-")[0]
+        // let title1 = newTitle1.replaceAll('_',' ')
                 
-        this.svg.append("text")
-        .attr("x", this.config.width)             
-        .attr("y", this.config.height*0.05) 
-        .style("font-size", "16px")
-        .style('text-anchor', 'end') 
-        .attr("font-weight", "bold")
-        .text(newTitle);
+        // this.svg.append("text")
+        // .attr("x", this.config.width)             
+        // .attr("y", this.config.height*0.05) 
+        // .style("font-size", "16px")
+        // .style('text-anchor', 'end') 
+        // .attr("font-weight", "bold")
+        // .text(title1);
+
+              
 
         let centroids = [this.config.width*0.85,this.config.height*0.80]
         //let att_region = null
         let config_radar = {width: 200, height: 200}
-
 
         
                 
@@ -149,7 +146,7 @@ export class RadarMap {
                 var translateAxes = {'x':-0.18*this.config.width+0.08*k*this.config.width,'y':+0.15*this.config.height}
             } else {
                 if (i==5){k = 0}
-                var translateAxes = {'x':-0.18*this.config.width+0.08*k*this.config.width,'y':+0.23*this.config.height}
+                var translateAxes = {'x':-0.18*this.config.width+0.08*k*this.config.width,'y':+0.25*this.config.height}
             } 
             k += 1
             
@@ -182,12 +179,21 @@ export class RadarMap {
         
         this.svg.append("text")
         .attr("x", label_coordinate.x + translate.x)
-        .attr("y", label_coordinate.y + translate.y - 20)
+        .attr("y", label_coordinate.y + translate.y - 30)
         .style('text-anchor', 'middle')
         .attr("alignment-baseline","middle")
         .attr("font-weight", "bold")
         .style('font-size', '9px')
-        .text(radar_Chart.clearTitle(name));
+        .text(radar_Chart.filterTitle1(name));
+
+        this.svg.append("text")
+        .attr("x", label_coordinate.x + translate.x)
+        .attr("y", label_coordinate.y + translate.y - 17)
+        .style('text-anchor', 'middle')
+        .attr("alignment-baseline","middle")
+        .attr("font-weight", "bold")
+        .style('font-size', '9px')
+        .text(radar_Chart.filterTitle2(name));
 
         //tick = [0,min,medida,max]
         //Calculando as variáveis intermediárias do Radar Chart
@@ -197,26 +203,7 @@ export class RadarMap {
         
         var ticks = [datamin,variable2,dataMax];
 
-        
-        
-        //Plotando os ticks
-        // ticks.forEach(t =>
-        //     this.svg.append("line")
-        //     .attr("x1", x + translate.x + (5*100*2)/this.config.width)
-        //     .attr("y1", y + translate.y  - radar_Chart.list_radial_scale[i](t))
-        //     .attr("x2", x + translate.x + (5*100*2)/this.config.width-5)
-        //     .attr("y2", y + translate.y - radar_Chart.list_radial_scale[i](t))
-        //     .attr("stroke","black")
-        // );
-
-        // ticks.forEach(t =>
-        //     this.svg.append("text")
-        //     .attr("x", x + translate.x + (5*100*2)/this.config.width)
-        //     .attr("y", y + translate.y - radar_Chart.list_radial_scale[i](t))
-        //     .text(t.toString())
-        //     .style('font-size', '9px')
-        //     .attr("font-weight", "bold")
-        // );
+       
         let distance = y + translate.y  - radar_Chart.list_radial_scale[i](ticks[0])
         let distance2 = y + translate.y  - radar_Chart.list_radial_scale[i](ticks[ticks.length-1])
         let distancetotal = distance - distance2

@@ -1,4 +1,4 @@
-Estado,Codigo_Estado_IBGE,Casos100khab,Mortes100khab,TotalVacina100khab,Dose1_100khab,Dose2_100khab,DoseUnica_100khab,Imunizados100khab,IDHx1000,Rend_Domiciliar
+Estado,Codigo_Estado_IBGE,Casos_de_Covid-por_100_mil_hab,Mortes_de_Covid-por_100_mil_hab,Total_de_Vacinas-por_100_mil_hab,Vacinas_1ªdose-por_100_mil_hab,Vacinas_2ªdose-por_100_mil_hab,Dose_unica-por_100_mil_hab,Imunizados-por_100_mil_hab,IDH-x1000,Renda_Domiciliar-Reais
 TO,11,14721,246,127254,68358,51504,1988,53492,699,1060
 AM,12,10298,328,114225,61351,46670,1223,47893,673,852
 ES,13,15469,327,152957,76190,61728,2623,64351,740,1347
