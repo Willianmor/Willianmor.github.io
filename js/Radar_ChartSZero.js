@@ -1,7 +1,7 @@
 let defaultConfsvg = {
     //div: '#RadarMap', 
-    width: 200, 
-    height: 200, 
+    width: 180, 
+    height: 180, 
 
     // parametros do circulo
     // let cx: width/2, 
@@ -55,7 +55,7 @@ export class RadarChart {
         if (is_legend){ //Input_attributes é uma lista com os Nomes dos atributos
             //Lista de valores
 
-            let ticks = [0,1,1,1]
+            let ticks = [1,1,1]
             //let ticks = [0,1,1*0.7,1]
             //Se for normalizar os dados pela população
             for(let k=0; k<ticks.length ; k++){
@@ -63,10 +63,10 @@ export class RadarChart {
                 for(let i=0; i<input_attributes.length ; i++){
                     let name = input_attributes[i]
                     var value = -1
-                    if(k==1){//minimo
+                    if(k==0){//minimo
                         value =  Math.round(this.min_values[name])
                         //console.log("Entrou em minimo")
-                    }else if (k>1 && k<ticks.length-1){
+                    }else if (k>0 && k<ticks.length-1){
                         value = Math.round((this.max_values[name]+this.min_values[name])/2)//Math.round((this.max_values[name]-this.min_values[name])*ticks[k])
                         //console.log("Entrou em intermediário")
                     }else {//maximo
@@ -168,7 +168,7 @@ export class RadarChart {
         //.exponent(0.3)
         let linearScale = d3.scaleLinear()
         .domain([Lim_inf,Lim_sup]) //Domínio do dado (0 até o limite máximo de cada eixo)
-        .range([0,this.config.width/4]);    //Valor pixel,this.config.width/14 = 14,5.   [14,50] 
+        .range([0,this.config.width/4.2]);    //Valor pixel,this.config.width/14 = 14,5.   [14,50] 
         //Quando range min = this.config.width/14, está dando erro na escala da legenda.
 
         return linearScale;
@@ -204,8 +204,8 @@ export class RadarChart {
                 //let radialScale = this.calculateLinearScale(min_value_by_att,max_value_by_att)
                 //OBS.: Para colocar o mínimo aqui sendo o mínimo do valor e não zero, teria que criar uma lista com o valores mínimos e aplicar lá em cima também.
 
-                //let radialScale = this.calculateLinearScale(min_value_by_att,max_value_by_att)
-                let radialScale = this.calculateLinearScale(0,max_value_by_att)
+                let radialScale = this.calculateLinearScale(min_value_by_att,max_value_by_att)
+                //let radialScale = this.calculateLinearScale(0,max_value_by_att)
                 if(k==0){this.list_radial_scale.push(radialScale)} // usado para Polygon
                 this.radialScale = radialScale
                 

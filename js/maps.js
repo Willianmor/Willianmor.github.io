@@ -220,7 +220,8 @@ export class Maps {
         let fun_color_scale = this.calculateColorScale(max,min,color)
 
         legend.append('rect')
-            .attr('x', this.config.width*0.75)
+            //.attr('x', this.config.width*0.75)
+            .attr('x', this.config.width*0.85)
             .attr('y', (this.config.height - this.config.bottom - max_barH))
             .attr('width', 20)
             .attr('height', h_bar_i)
@@ -234,7 +235,8 @@ export class Maps {
             .attr('class', 'legend_border')
         
             Label_and_border.append('rect')
-            .attr('x', this.config.width*0.75)
+            //.attr('x', this.config.width*0.75)
+            .attr('x', this.config.width*0.85)
             .attr('y', (this.config.height - this.config.bottom - max_barH))
             .attr('width', 20)
             .attr('height', max_barH)
@@ -246,7 +248,8 @@ export class Maps {
 
             Label_and_border.append('text')
             .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
-            .attr('x', this.config.width*0.79 + side/2)
+            //.attr('x', this.config.width*0.79 + side/2)
+            .attr('x', this.config.width*0.91 + side/2)
             .attr('y', this.config.height - this.config.bottom - max_barH)
             .attr('dy', '0.5em')
             .style('text-anchor', 'start')
@@ -256,9 +259,11 @@ export class Maps {
 
             Label_and_border.append('line')
                 .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
-                .attr("x1", this.config.width*0.78)
+                //.attr("x1", this.config.width*0.78)
+                .attr("x1", this.config.width*0.85)
                 .attr("y1", this.config.height - this.config.bottom - max_barH)
-                .attr("x2", this.config.width*0.79 + side/2)
+                //.attr("x2", this.config.width*0.79 + side/2)
+                .attr("x2", this.config.width*0.91 + side/2)
                 .attr("y2", this.config.height - this.config.bottom - max_barH)
                 .attr("stroke","black")
                 .attr('stroke-width', 2);
@@ -269,7 +274,8 @@ export class Maps {
             .enter().append('g')
             .attr('class', 'legend_border_mean')
         Label_and_border_mean.append('text')
-            .attr('x', this.config.width*0.79 + side/2)
+            //.attr('x', this.config.width*0.79 + side/2)
+            .attr('x', this.config.width*0.91 + side/2)
             .attr('y', this.config.height - this.config.bottom - max_barH + mean_Scale)
             .attr('dy', '0.5em')
             .style('text-anchor', 'start')
@@ -278,9 +284,11 @@ export class Maps {
             .text(function(d) {return d.toString()});
 
         Label_and_border_mean.append('line')
-            .attr("x1", this.config.width*0.78)
+            //.attr("x1", this.config.width*0.78)
+            .attr("x1", this.config.width*0.89)
             .attr("y1", this.config.height - this.config.bottom - max_barH + mean_Scale)
-            .attr("x2", this.config.width*0.79 + side/2)
+            //.attr("x2", this.config.width*0.79 + side/2)
+            .attr("x2", this.config.width*0.91 + side/2)
             .attr("y2", this.config.height - this.config.bottom - max_barH + mean_Scale)
             .attr("stroke","black")
             .attr('stroke-width', 2);

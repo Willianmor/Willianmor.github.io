@@ -20,7 +20,12 @@ export class MultiplesMap {
     calculateExtensionAndCreateDivs() {
         //Requisita a quantidade de variáveis/atributos
         let len = this.count
-        this.dimesional = 770
+
+        //Teste de agora
+        this.dimesional = 600
+
+        //Antes
+        //this.dimesional = 770
 
         console.log("TESTE", len)
 
@@ -116,7 +121,10 @@ export class MultiplesMap {
         }
 
         else if (len>8 && len<=10) {
-            this.dimesional = (this.dimesional*100)/140.5
+            //Teste para mapa auxiliar
+            this.dimesional = (this.dimesional*100)/160.5
+            //Antigo
+            //this.dimesional = (this.dimesional*100)/140.5
             //calcular width e height
             extension = this.mydata.calculaExtentSVG(this.dimesional)
             //similar ao de três -> com duas linhas

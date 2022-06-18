@@ -448,7 +448,9 @@ export class Data {
         //     console.log((centroide.slice(0,2)))
         //     //this.centroide.push(centroide) 
         // }
-        let centroide = polylabel(dataset_mapa, precision); 
+        let centroide = polylabel(dataset_mapa, precision);
+        //console.log("MUDAR CENTROIDE",centroide)
+
         return centroide.slice(0,2)
 
     }
@@ -557,6 +559,7 @@ export class Data {
             }
         }
         console.log("------------------------",this.final_structure)
+        console.log(this.final_structure['PB'][this.centroide])
     }
 
     getQuadrantes(){    
