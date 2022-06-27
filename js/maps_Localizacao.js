@@ -34,6 +34,7 @@ export class Maps {
         ])
         this.dataGeo = data_mapa;
         this.render()
+        this.renderMapLegend()
     }
 
 
