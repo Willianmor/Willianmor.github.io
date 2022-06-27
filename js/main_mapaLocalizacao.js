@@ -1,5 +1,5 @@
 //Carregando a Classe Data
-import {Maps} from "./maps_localizacao.js";
+import {Maps} from "./maps_Localizacao.js";
 
 let confsvg = {
     div: '#map_localizacao', 
