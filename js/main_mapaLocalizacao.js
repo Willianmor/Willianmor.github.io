@@ -3,8 +3,8 @@ import {Maps} from "./maps_Localizacao.js";
 
 let confsvg = {
     div: '#map_localizacao', 
-    width: 850, 
-    height: 850, 
+    width: 700, 
+    height: 700, 
     top: 30, 
     left: 10, 
     bottom: 30, 
