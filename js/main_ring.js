@@ -8,8 +8,8 @@ await data_covid.loadData()
 
 let confsvg = {
     div: '#map', 
-    width: 700, 
-    height: 700, 
+    width: 1000, 
+    height: 1000, 
     top: 30, 
     left: 10, 
     bottom: 30, 
