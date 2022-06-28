@@ -65,3 +65,9 @@
 .Centro-Oeste {
   fill: gray;
 }
+
+.equal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
