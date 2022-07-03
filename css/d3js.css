@@ -72,10 +72,11 @@
   flex-wrap: wrap;
 }
 
+/*
 .ui-select-search {
   width: 100% !important;
 }
 
-/*.ui-select-container:not(.ui-select-multiple) input.ui-select-search {
+.ui-select-container:not(.ui-select-multiple) input.ui-select-search {
   width: 100% !important;
 }*/
