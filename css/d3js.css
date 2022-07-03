@@ -73,5 +73,6 @@
 }
 
 .row {
-  resize: both;
+  resize: none;
+  overflow:auto; 
 }
