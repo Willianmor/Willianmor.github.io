@@ -71,3 +71,7 @@
   display: -webkit-flex;
   flex-wrap: wrap;
 }
+
+.row {
+  max-width: 120%;
+}
