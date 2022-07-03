@@ -73,5 +73,7 @@
 }
 
 .row {
-  max-width: 120%;
+  max-width: 160%;
+  height: 80%;
+  width: 80%;
 }
