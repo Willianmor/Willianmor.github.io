@@ -72,7 +72,6 @@
   flex-wrap: wrap;
 }
 
-.row {
-  resize: none;
-  overflow:auto; 
+.ui-select-container:not(.ui-select-multiple) input.ui-select-search {
+  width: 100% !important;
 }
