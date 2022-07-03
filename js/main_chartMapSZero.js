@@ -12,8 +12,8 @@ await data_covid.loadData()
 
 let confsvg2 = {
     div: '#RadarMap', 
-    width: 1100, 
-    height: 1000, 
+    width: 900, 
+    height: 900, 
     top: 30, 
     left: 10, 
     bottom: 30, 
