@@ -12,8 +12,8 @@ await data_covid.loadData()
 
 let confsvg2 = {
     div: '#RadarMap', 
-    width: 1000, 
-    height: 1000, 
+    width: 700, 
+    height: 700, 
     top: 30, 
     left: 10, 
     bottom: 30, 
@@ -29,8 +29,8 @@ let center_map1 = data_covid.calculateCenterMaps()
 
 //Variável 1
 //Criar os dados necessários do SVG
-let center_map = center_map1 //[-55.79779400006231, -13.6]
-
+let center_map0 = center_map1 //[-55.79779400006231, -13.6]
+let center_map = [center_map0[0]-1.3,center_map0[1]-0.2]
 // Radar Map
 //let name_attribute1 = data_covid.attributes[1]
 var mapa2 = new RadarMap(center_map,confsvg2)

@@ -109,26 +109,10 @@ export class RadarMap {
 
     renderMapLegend (att_region, max_value,min_value, mean_value, title) {
 
-        //ranges 
-
-        //cores do ranges 
-        //let nested = unique //[{'key':'Rio de Janeiro','color':'red'}, {'key':'SP','color':'black'},{'key':'MG','color':'blue'}]
-
-        
-        // let newTitle1 = title.split("-")[0]
-        // let title1 = newTitle1.replaceAll('_',' ')
-                
-        // this.svg.append("text")
-        // .attr("x", this.config.width)             
-        // .attr("y", this.config.height*0.05) 
-        // .style("font-size", "16px")
-        // .style('text-anchor', 'end') 
-        // .attr("font-weight", "bold")
-        // .text(title1);
 
               
 
-        let centroids = [this.config.width*0.85,this.config.height*0.80]
+        let centroids = [this.config.width*0.22,this.config.height*0.55]
         //let att_region = null
         let config_radar = {width: 200, height: 200}
 
@@ -143,10 +127,10 @@ export class RadarMap {
             let name = radar_Chart.name_attributes[i]
                       
             if (i<5){
-                var translateAxes = {'x':-0.18*this.config.width+0.08*k*this.config.width,'y':+0.15*this.config.height}
+                var translateAxes = {'x':-0.18*this.config.width+0.09*k*this.config.width,'y':+0.25*this.config.height}
             } else {
                 if (i==5){k = 0}
-                var translateAxes = {'x':-0.18*this.config.width+0.08*k*this.config.width,'y':+0.25*this.config.height}
+                var translateAxes = {'x':-0.18*this.config.width+0.09*k*this.config.width,'y':+0.40*this.config.height}
             } 
             k += 1
             
@@ -183,7 +167,7 @@ export class RadarMap {
         .style('text-anchor', 'middle')
         .attr("alignment-baseline","middle")
         .attr("font-weight", "bold")
-        .style('font-size', '9px')
+        .style('font-size', '7px')
         .text(radar_Chart.filterTitle1(name));
 
         this.svg.append("text")
@@ -192,7 +176,7 @@ export class RadarMap {
         .style('text-anchor', 'middle')
         .attr("alignment-baseline","middle")
         .attr("font-weight", "bold")
-        .style('font-size', '9px')
+        .style('font-size', '6px')
         .text(radar_Chart.filterTitle2(name));
 
         //tick = [0,min,medida,max]

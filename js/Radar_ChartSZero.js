@@ -3,16 +3,6 @@ let defaultConfsvg = {
     width: 180, 
     height: 180, 
 
-    // parametros do circulo
-    // let cx: width/2, 
-    // cy: height/2, 
-    // parametros dos textos
-    // x: width/2 + width/60,
-    // y: width/2,
-    // Coordenada do inicio dos eixos (centro)
-    // x1:width/2,
-    // x2:width/2,
-
 };
 
 
@@ -37,13 +27,7 @@ export class RadarChart {
                 
     }
 
-    //Calculando so valores do radar da legenda
-    // let auxmax = Math.round(this.max_values[this.name_attributes[0]])
-    // let auxmin = Math.round(this.min_values[this.name_attributes[0]])
-    // let m2 = Math.round((auxmax-auxmin)*0.66)
-    // let m3 = Math.round((auxmax-auxmin)*0.33)
-    // //console.log("TESTEEEEEEEE",0,auxmin,m2,m3,auxmax)
-    // let ticks = [0,auxmin,m2,m3,auxmax]
+    
    
 
     //Necessário normalizar os valores.
@@ -100,15 +84,7 @@ export class RadarChart {
         //console.log("*-*-*-*-*-*-*-",this.attributes)
     }
 
-    //SVG deve ser criado para plotar a legenda
-    // createSvg(svg_mapa) {
-    //     this.svg = d3.select(this.config.div).append("svg")
-    //     .attr("width", this.config.width)
-    //     .attr("height", this.config.height)
-    //     .attr('class', 'card');
-    // }
-
-    
+   
     //Criando os ângulos de cada eixos a ser plotado
     angleToCoordinate(angle, value, is_polygon=false, i=0){
         //console.log(angle, value)
@@ -200,8 +176,6 @@ export class RadarChart {
     }
         
 
-
-
     //Espaço de renderização
     render() {
         
@@ -279,11 +253,6 @@ export class RadarChart {
 
             }
         }
-        // for (var k = 0; k < this.attributes.length; k++) {
-        //     for (var i = 0; i < this.name_attributes.length; i++) {
-        //         if(k==0){console.log("Lista de máximos",this.list_radial_scale)}
-        //     }
-        // }
         
               
         // TODO: POlygons
