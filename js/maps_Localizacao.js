@@ -13,19 +13,20 @@ export class Maps {
         this.scale = this.config.height/2.3*Math.PI;
         this.projection = null;
         this.path = null;
-        this.data = null;
-        this.dataGeo2 = null;
+        
+        //this.dataGeo2 = null;
         this.filenamemaps = file_map;
 
         
-        this.createSvg();
+        //this.createSvg();
         this.loadData();
         
     }
 
     //Método da Classe Data que carrega o dado - load Promise é o método que apoia no carregamento do dado. Só carrega a próxima função depois que carregar o dado completo.
     loadData() {
-        this._loadDataPromise();        
+        this._loadDataPromise();
+        this.createSvg();//Troquei para ca        
     }
     
     async _loadDataPromise() {
@@ -160,8 +161,8 @@ export class Maps {
 
         this.svg.append("text")
         .attr("x", this.config.width*0.86)             
-        .attr("y", this.config.height*0.02) 
-        .style("font-size", "16px")
+        .attr("y", this.config.height*0.03) 
+        .style("font-size", "12px")
         .style('text-anchor', 'end') 
         .attr("font-weight", "bold")
         .text(newTitle);
@@ -185,7 +186,7 @@ export class Maps {
             //.attr('fill', function(d) { return d.color;});
     
         legend.append('text')
-            .attr('x', this.config.width*0.78)
+            .attr('x', this.config.width*0.80)
             .attr('y', this.config.height - this.config.bottom)
             .attr('dy', '1.5em')
             .attr("alignment-baseline","middle")
