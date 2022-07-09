@@ -114,7 +114,7 @@ export class RadarMap {
 
         let centroids = [this.config.width*0.22,this.config.height*0.55]
         //let att_region = null
-        let config_radar = {width: 200, height: 200}
+        let config_radar = {width: 160, height: 160}
 
         
                 
@@ -127,10 +127,10 @@ export class RadarMap {
             let name = radar_Chart.name_attributes[i]
                       
             if (i<5){
-                var translateAxes = {'x':-0.18*this.config.width+0.09*k*this.config.width,'y':+0.25*this.config.height}
+                var translateAxes = {'x':-0.16*this.config.width+0.09*k*this.config.width,'y':+0.25*this.config.height}
             } else {
                 if (i==5){k = 0}
-                var translateAxes = {'x':-0.18*this.config.width+0.09*k*this.config.width,'y':+0.40*this.config.height}
+                var translateAxes = {'x':-0.16*this.config.width+0.09*k*this.config.width,'y':+0.40*this.config.height}
             } 
             k += 1
             

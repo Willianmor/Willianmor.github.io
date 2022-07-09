@@ -194,6 +194,14 @@ export class Maps {
             .attr("font-weight", "bold")
             .style('font-size', '12px')
             .text(function(d) { return d.key; });
+
+            this.svg.append("image")
+            .attr("xlink:href", "https://willianmor.github.io/assets/Norte.png")
+            .attr("x", this.config.width*0.98)
+            .attr("y", this.config.width*0.05)
+            .attr("width", this.config.width*0.08)
+            .attr("height", this.config.width*0.08);
+    
     
     }
 

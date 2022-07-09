@@ -547,6 +547,19 @@ export class Data {
         return extension;
     }
 
+    alteraCentroide(region, i){
+        let centroide = this.getCentroide(this.data_mapa.features[i].geometry.coordinates[0], 1.0)
+        if (region=="RN"){
+            //centroide[0] = centroide[0] + 1
+            centroide[1] = centroide[1] + 0.5
+        }
+        else if  (region=="PB"){
+            centroide[0] = centroide[0] + 2.5
+
+        }
+        return centroide
+    }
+
     dataFinalStructure() {
         this.final_structure = {}
 
@@ -554,7 +567,7 @@ export class Data {
             let region = this.data_mapa.features[i].properties.ESTADO
 
             this.final_structure[region] = {
-                "centroide": this.getCentroide(this.data_mapa.features[i].geometry.coordinates[0], 1.0),
+                "centroide": this.alteraCentroide(region,i),
 				"variables": this.variable_structure[region]  // TODO
             }
         }

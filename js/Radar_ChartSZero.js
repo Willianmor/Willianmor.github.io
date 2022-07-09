@@ -1,7 +1,7 @@
 let defaultConfsvg = {
     //div: '#RadarMap', 
-    width: 180, 
-    height: 180, 
+    width: 160, 
+    height: 160, 
 
 };
 

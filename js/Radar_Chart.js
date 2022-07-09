@@ -1,7 +1,7 @@
 let defaultConfsvg = {
     //div: '#RadarMap', 
-    width: 200, 
-    height: 200, 
+    width: 180, 
+    height: 180, 
 
     // parametros do circulo
     // let cx: width/2, 

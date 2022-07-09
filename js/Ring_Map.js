@@ -464,7 +464,7 @@ export class RingMap {
     
     renderMapLegend (dataMin, dataMax, dataMean, legends, atributtes) {
         let x = this.config.width*0.1
-        let y = this.config.height*0.83
+        let y = this.config.height*0.85
         let side = this.config.width*1.6/100
         
         //cores do ranges 
@@ -509,7 +509,7 @@ export class RingMap {
             //Cores dos intervalos
             //let nested = legends[title]
 
-            let max_barH = 80
+            let max_barH = this.config.width*0.07
             let h_bar_i = 1.7
             let min = dataMin[title]
             let max = dataMax[title]
