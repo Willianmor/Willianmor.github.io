@@ -184,7 +184,7 @@ export class Maps {
         this.svg.append("text")
         .attr("x", this.config.width*0.81)             
         .attr("y", this.config.height*0.7) 
-        .style("font-size", "12px")
+        .style("font-size", "9px")
         //.style('text-anchor', 'end') 
         .attr("font-weight", "bold")
         .text(title1);
@@ -193,7 +193,7 @@ export class Maps {
         this.svg.append("text")
         .attr("x", this.config.width*0.81)             
         .attr("y", this.config.height*0.75) 
-        .style("font-size", "12px")
+        .style("font-size", "7px")
         //.style('text-anchor', 'end') 
         .attr("font-weight", "bold")
         .text(title2);
@@ -202,7 +202,7 @@ export class Maps {
         //let nested = legends[title]
         //let min = 8
         //let max = 25
-        let max_barH = 100
+        let max_barH = 0.25*this.config.height
         let h_bar_i = 1.7
 
         let nested = [min] //legends[title]
@@ -232,7 +232,7 @@ export class Maps {
             //.attr('x', this.config.width*0.75)
             .attr('x', this.config.width*0.85)
             .attr('y', (this.config.height - this.config.bottom - 0.3*max_barH))
-            .attr('width', 20)
+            .attr('width', this.config.width*0.05)
             .attr('height', h_bar_i)
             //.attr("alignment-baseline","middle")
             .attr('stroke-width', 0)
@@ -247,7 +247,7 @@ export class Maps {
             //.attr('x', this.config.width*0.75)
             .attr('x', this.config.width*0.85)
             .attr('y', (this.config.height - this.config.bottom - 0.3*max_barH))
-            .attr('width', 20)
+            .attr('width', this.config.width*0.05)
             .attr('height', max_barH)
             .attr('stroke-width', 1)
             .attr('stroke',"Black")
@@ -263,7 +263,7 @@ export class Maps {
             .attr('dy', '0.5em')
             .style('text-anchor', 'start')
             .attr("font-weight", "bold")
-            .style('font-size', '11px')
+            .style('font-size', '9px')
             .text(function(d) {return d.toString()});
 
             Label_and_border.append('line')
@@ -289,7 +289,7 @@ export class Maps {
             .attr('dy', '0.5em')
             .style('text-anchor', 'start')
             .attr("font-weight", "bold")
-            .style('font-size', '11px')
+            .style('font-size', '9px')
             .text(function(d) {return d.toString()});
 
         Label_and_border_mean.append('line')
@@ -320,7 +320,7 @@ export class Maps {
         let xScalerBar = this.config.width*0.25
         let yScaleBar = this.config.height
         let kilometers = d3.geoScaleBar()
-                    .left(.2)
+                    .left(.3)
                     .top(.97)
                     .distance(2000);
         let scaleBarKilometers = this.svg.append("g")
