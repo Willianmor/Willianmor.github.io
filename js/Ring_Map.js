@@ -3,13 +3,30 @@
 function createNewTitle(title){
     var newtitle=title
     if (title.search('_') ){
-        newtitle = title.replace('_',' ')
+        newtitle = title.replaceAll('_',' ')
     } else if (title.search('-')) {
         newtitle = title.replace('-',' ')
     }
 
     return  newtitle;
 }
+
+function createNewTitle2(title){
+    var newtitle1=title
+    if (title.search('_') ){
+        newtitle1 = title.replaceAll('_',' ')
+    }
+    
+    if (title.search('-')) {
+        newtitle1 = newtitle1.replaceAll('-',' (')
+        newtitle1 = newtitle1.replaceAll('hab','hab)')
+        newtitle1 = newtitle1.replaceAll('1000','1000)')
+        newtitle1 = newtitle1.replaceAll('Reais','Reais)')
+    } 
+
+    return  newtitle1;
+}
+
 export class RingMap {
     constructor(center_map,confsvg, len_att) {
         
@@ -284,7 +301,7 @@ export class RingMap {
         let yScaleBar = this.config.height
         let kilometers = d3.geoScaleBar()
                     .left(.2)
-                    .top(.72)
+                    .top(.70)
                     .distance(2000);
         let scaleBarKilometers = this.svg.append("g")
             .attr("transform", "translate(0, 40)");
@@ -413,6 +430,7 @@ export class RingMap {
         let side = this.config.width*1.5/100
         let variableside = this.config.width*1.5/100*1.5
 
+        
         var legend = this.svg.selectAll('.legend_key').data(atributtes)
         .enter().append('g')
         .attr('class', 'legend')
@@ -436,7 +454,7 @@ export class RingMap {
             .style('text-anchor', 'start')
             .attr("font-weight", "bold")
             .style('font-size', '12px')
-            .text(function(d) { return createNewTitle(d); });
+            .text(function(d) { return createNewTitle2(d); });
         
         this.svg.append("line")
             .attr("x1", x + side/2)
@@ -492,8 +510,8 @@ export class RingMap {
 
             this.svg.append("text")
             .attr("x", aux_x)             
-            .attr("y", y-17) 
-            .style("font-size", "12px")
+            .attr("y", y-13) 
+            .style("font-size", "9px")
             .style('text-anchor', 'start') 
             .attr("font-weight", "bold")
             .text(title1);
@@ -501,7 +519,7 @@ export class RingMap {
             this.svg.append("text")
             .attr("x", aux_x)             
             .attr("y", y) 
-            .style("font-size", "12px")
+            .style("font-size", "8px")
             .style('text-anchor', 'start') 
             .attr("font-weight", "bold")
             .text(title2);
@@ -570,7 +588,7 @@ export class RingMap {
                 .attr('dy', '0.5em')
                 .style('text-anchor', 'start')
                 .attr("font-weight", "bold")
-                .style('font-size', '11px')
+                .style('font-size', '9px')
                 .text(function(d) {return d.toString()});
             Label_and_border.append('line')
                 .attr('transform', function(d, i) { return 'translate(0,' + i * max_barH + ')'; })
@@ -592,7 +610,7 @@ export class RingMap {
                 .attr('dy', '0.5em')
                 .style('text-anchor', 'start')
                 .attr("font-weight", "bold")
-                .style('font-size', '11px')
+                .style('font-size', '9px')
                 .text(function(d) {return d.toString()});
 
             Label_and_border_mean.append('line')
@@ -603,17 +621,6 @@ export class RingMap {
                 .attr("stroke","black")
                 .attr('stroke-width', 2);
 
-
-
-            // legend.append('text')
-            //     .attr('x', aux_x + side + 5)
-            //     .attr('y', y)
-            //     .attr('dy', '1.5em')
-            //     .attr("alignment-baseline","middle")
-            //     .style('text-anchor', 'start')
-            //     .attr("font-weight", "bold")
-            //     .style('font-size', '12px')
-            //     .text(function(d) { return d.key; });
         }
     }
 

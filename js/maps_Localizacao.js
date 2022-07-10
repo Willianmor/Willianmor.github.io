@@ -99,7 +99,7 @@ export class Maps {
                     .attr("dy", +3) // set y position of bottom of text
                     .style("fill", "black") // fill the text with the colour black
                     .attr("font-weight", "bold")
-                    .style('font-size', '12px')
+                    .style('font-size', '10px')
                     // .attr("text-anchor", "middle") // set anchor y justification
                     .text(function(d) {return d.properties.ESTADO;}); // define the text to display
 
@@ -192,7 +192,7 @@ export class Maps {
             .attr("alignment-baseline","middle")
             .style('text-anchor', 'start')
             .attr("font-weight", "bold")
-            .style('font-size', '12px')
+            .style('font-size', '10px')
             .text(function(d) { return d.key; });
 
             this.svg.append("image")

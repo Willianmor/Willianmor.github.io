@@ -551,12 +551,23 @@ export class Data {
         let centroide = this.getCentroide(this.data_mapa.features[i].geometry.coordinates[0], 1.0)
         if (region=="RN"){
             //centroide[0] = centroide[0] + 1
-            centroide[1] = centroide[1] + 0.5
+            centroide[1] = centroide[1] + 0.7
         }
         else if  (region=="PB"){
-            centroide[0] = centroide[0] + 2.5
+            centroide[0] = centroide[0] + 2.2
 
         }
+
+        else if  (region=="AL"){
+            centroide[0] = centroide[0] + 1.1
+
+        }
+
+        else if  (region=="GO"){
+            centroide[0] = centroide[0] - 0.5
+
+        }
+
         return centroide
     }
 
