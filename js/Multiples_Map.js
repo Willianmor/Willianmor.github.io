@@ -22,7 +22,7 @@ export class MultiplesMap {
         let len = this.count
 
         //Teste de agora
-        this.dimesional = 370
+        this.dimesional = 360
 
         //Antes
         //this.dimesional = 770
