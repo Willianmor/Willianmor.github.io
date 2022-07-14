@@ -99,7 +99,7 @@ export class Maps {
                     .attr("dy", +3) // set y position of bottom of text
                     .style("fill", "black") // fill the text with the colour black
                     .attr("font-weight", "bold")
-                    .style('font-size', '10px')
+                    .style('font-size', '9px')
                     // .attr("text-anchor", "middle") // set anchor y justification
                     .text(function(d) {return d.properties.ESTADO;}); // define the text to display
 
@@ -160,10 +160,10 @@ export class Maps {
         let newTitle = "Mapa de Localização das Unidades Federativas"
 
         this.svg.append("text")
-        .attr("x", this.config.width*0.86)             
+        .attr("x", this.config.width*0.5)             
         .attr("y", this.config.height*0.03) 
         .style("font-size", "12px")
-        .style('text-anchor', 'end') 
+        .style('text-anchor', 'middle') 
         .attr("font-weight", "bold")
         .text(newTitle);
 
